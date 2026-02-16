@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trivia Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: grey;
+      text-align: center;
+      padding: 50px;
+    }
+    .quiz-container {
+      background: #282828;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background: whitesmoke;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .option:hover {
+      background: #d4edda;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div class="question" id="question">Loading question...</div>
+    <div id="options"></div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Which superhero is known as the Dark Knight?",
+        options: ["Superman", "Batman", "Spider-Man", "Iron Man"],
+        answer: "Batman"
+      },
+      {
+        question: "Which movie features the song 'Let It Go'?",
+        options: ["Frozen", "Moana", "Tangled", "Coco"],
+        answer: "Frozen"
+      }
+    ];
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach(option => {
+        const btn = document.createElement("div");
+        btn.textContent = option;
+        btn.className = "option";
+        btn.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const resultDiv = document.getElementById("result");
+      if (selected === quizData[currentQuestion].answer) {
+        resultDiv.textContent = " Correct!";
+      } else {
+        resultDiv.textContent = " Wrong! Try again.";
+      }
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
